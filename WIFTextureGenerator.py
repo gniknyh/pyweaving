@@ -1,6 +1,3 @@
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
 from pyweaving import Draft, instructions
 from pyweaving.wif import WIFReader, WIFWriter
 from math import asin, cos, floor, sin
@@ -14,7 +11,7 @@ import os
 os.environ["OPENCV_IO_ENABLE_OPENEXR"]="1"
 import cv2
 __here__ = os.path.dirname(__file__)
-font_path = os.path.join(__here__, 'pyweaving/data', 'Arial.ttf')
+font_path = os.path.join(__here__, './data', 'LiberationSans.ttf')
 
 
 
@@ -28,7 +25,6 @@ sin_u_max = sin(u_max)
 
 sin_psi = sin(psi)
 cos_psi = cos(psi)
-pixel_scale = 4
 
 
 class TextureGenerator(object):
@@ -213,12 +209,13 @@ def load_draft(infile):
 
 
 
-def genTexture(file):
+def genTexture(file, pixel_res=4):
     draft = load_draft(file)
     ir = TextureGenerator(draft)
-    ir.set_pixel_resolution(pixel_scale)
+    ir.set_pixel_resolution(pixel_res)
     ir.set_output_name("out", "normal", "tangent")
     ir.make_pil_image()
 
-# genTexture("05sH010_linen.wif")
-genTexture("123.wif")
+if __name__ == "__main__":
+	# genTexture("05sH010_linen.wif")
+	genTexture("./data/123.wif",12)
